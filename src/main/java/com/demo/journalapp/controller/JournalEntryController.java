@@ -3,12 +3,11 @@ package com.demo.journalapp.controller;
 import com.demo.journalapp.entity.JournalEntry;
 import com.demo.journalapp.service.JournalEntryService;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/journal")
@@ -21,18 +20,21 @@ public class JournalEntryController {
     }
 
     @GetMapping("list-journal")
-    public List<JournalEntry> getJournalEntries() {
-       return journalEntryService.getAllJournalEntries();
+    public ResponseEntity<List<JournalEntry>> getJournalEntries() {
+       List<JournalEntry> journalEntries = journalEntryService.getAllJournalEntries();
+       return new ResponseEntity<>(journalEntries, HttpStatus.OK);
     }
 
     @PostMapping
-    public void addEntry(@RequestBody JournalEntry entry) {
+    public ResponseEntity<HttpStatus> addEntry(@RequestBody JournalEntry entry) {
         journalEntryService.saveEntry(entry);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/id/{id}")
-    public JournalEntry getJournalEntry(@PathVariable ObjectId id) {
-        return journalEntryService.getJournalEntryById(id);
+    public ResponseEntity<JournalEntry> getJournalEntry(@PathVariable ObjectId id) {
+        JournalEntry journalEntry =  journalEntryService.getJournalEntryById(id);
+        return new ResponseEntity<>(journalEntry, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
