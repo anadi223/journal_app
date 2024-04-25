@@ -17,6 +17,7 @@ public class TransactionConfig {
 
     }
 
+    //Required for MongoAtlas
     @Bean
     public MongoTemplate mongoTemplate(MongoDatabaseFactory dbFactory){
         return new MongoTemplate(dbFactory);
