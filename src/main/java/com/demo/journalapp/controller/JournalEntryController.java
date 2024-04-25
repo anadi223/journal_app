@@ -39,6 +39,8 @@ public class JournalEntryController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+
+
     }
 
     @GetMapping("/id/{id}")

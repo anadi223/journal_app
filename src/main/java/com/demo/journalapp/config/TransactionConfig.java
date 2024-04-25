@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -14,5 +15,10 @@ public class TransactionConfig {
     public PlatformTransactionManager manager(MongoDatabaseFactory dbFactory){
         return new MongoTransactionManager(dbFactory); //MongoTransactionManager takes up a dbFactory which is of type MongoDatabaseFactory, It is the MongoDatabaseFactory which is helping us in executing all the queries that we are performing, session that is getting created.
 
+    }
+
+    @Bean
+    public MongoTemplate mongoTemplate(MongoDatabaseFactory dbFactory){
+        return new MongoTemplate(dbFactory);
     }
 }
