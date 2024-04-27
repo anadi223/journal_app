@@ -27,4 +27,6 @@ public class User {
     @DBRef //Will create a foreign key kind of in mongo db collection
     private List<JournalEntry> journalEntries = new ArrayList<>();
 
+    private List<String> roles;
+
 }
