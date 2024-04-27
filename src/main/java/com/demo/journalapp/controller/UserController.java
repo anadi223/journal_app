@@ -6,6 +6,8 @@ import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,16 +30,20 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser =  userService.saveUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    @PutMapping("/update-user")
+    public ResponseEntity<HttpStatus> updateUser(@RequestBody User user) {
+        //We will get the user from the authorization that we are setting in postman,
+        //and spring security holds the information in securitycontextholder and based on that we will go ahead and fetch the username
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userService.updateUser(user,username);
+
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable ObjectId id) {
-        userService.deleteUserEntryById(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    @DeleteMapping("/delete")
+    public ResponseEntity<HttpStatus> deleteUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return userService.deleteByUserName(username);
     }
-
 }

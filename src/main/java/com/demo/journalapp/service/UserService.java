@@ -3,10 +3,11 @@ package com.demo.journalapp.service;
 import com.demo.journalapp.entity.User;
 import com.demo.journalapp.repository.UserRepo;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -18,15 +19,15 @@ public class UserService{
         this.userRepo = userRepo;
     }
 
-    public User saveUser(User user) {
+    public User saveNewUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList("USER"));
+        user.setRoles(List.of("USER"));
         userRepo.save(user);
         return user;
     }
 
-    public void saveNewUser(User user) {
-
+    public void saveUser(User user) {
+        userRepo.save(user);
     }
 
     public List<User> getAllUsers() {
@@ -45,4 +46,16 @@ public class UserService{
         return userRepo.findByUserName(username);
     }
 
+    public ResponseEntity<HttpStatus> updateUser(User user, String authenticatedUser) {
+        User userInDB = userRepo.findByUserName(authenticatedUser);
+        userInDB.setUserName(user.getUserName());
+        userInDB.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepo.save(userInDB);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    public ResponseEntity<HttpStatus> deleteByUserName(String username) {
+        userRepo.deleteByUserName(username);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

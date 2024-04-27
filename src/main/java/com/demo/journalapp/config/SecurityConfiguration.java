@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,10 +36,11 @@ public class SecurityConfiguration {
         authenticationManagerBuilder.userDetailsService(customUserDetailService);
         authenticationManager = authenticationManagerBuilder.build();
         http.authorizeHttpRequests(request->request.
-                requestMatchers("/journal/**").hasRole("USER").
+                requestMatchers("/journal/**","/user/**").hasRole("USER").
                 anyRequest().permitAll());
         http.authenticationManager(authenticationManager);
         http.httpBasic(Customizer.withDefaults());
+        http.sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.csrf(AbstractHttpConfigurer::disable); //Spring security by default expects that you will send a CSRF token while sending your request but since our app is stateless we can disable the csrf to not send any extra token
         return http.build();
     }
