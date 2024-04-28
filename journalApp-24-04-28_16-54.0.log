@@ -1,0 +1,1 @@
+24-04-28 16:54:59.570 [http-nio-8080-exec-6] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unrecognized token 'Wayne51': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')] 
