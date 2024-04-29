@@ -1,0 +1,376 @@
+{
+  "info": {
+    "_postman_id": "0a493692-6489-4873-a63d-f1d3a070f0c1",
+    "name": "JournalApplication",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21295007"
+  },
+  "item": [
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "HealthCheck",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/public/health-check",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["public", "health-check"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"userName\":\"XXX\",\r\n   \"password\":\"XXXX\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/public/create-user",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["public", "create-user"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AuthenticatedUserActions",
+      "item": [
+        {
+          "name": "UpdateUser",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "XXXX",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "XXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"userName\":\"Shyam\",\r\n   \"password\":\"12345\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/user/update-user",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["user", "update-user"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAllUsers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/user/all",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["user", "all"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetUserById",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "xxxx",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "XXXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/user/id/662c9bf06053d50bbaf0f0a2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["user", "id", "662c9bf06053d50bbaf0f0a2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetUserById Copy",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "xxxxx",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "XXXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/user/greet",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["user", "greet"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteUserByName",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "XXXX",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "XXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/user/delete",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["user", "delete"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "JournalForUsers",
+      "item": [
+        {
+          "name": "PostJournalForAUser",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "XXXX",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "XXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Morning\",\r\n    \"content\":\"Morning was good !\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/journal/create-journal",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["journal", "create-journal"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateById",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "XXXX",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "XXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Afternoon\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/journal/update/66267886691e9109f44d177d",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["journal", "update", "66267886691e9109f44d177d"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAllJournalsForAUser",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "XXXX",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "XXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/journal/list-journal",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["journal", "list-journal"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetJournalById",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "XXXXX",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "XXXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/journal/id/662c9bb96053d50bbaf0f0a1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["journal", "id", "662c9bb96053d50bbaf0f0a1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteJournalByIdForAUser",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "XXXXX",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "XXXXX",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/journal/delete/662c97b30050bd26c89bb9ce",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["journal", "delete", "662c97b30050bd26c89bb9ce"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
