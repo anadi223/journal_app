@@ -1,7 +1,11 @@
 package com.demo.journalapp.controller;
 
+import com.demo.journalapp.dtos.QuoteResponse;
+import com.demo.journalapp.dtos.WeatherResponse;
 import com.demo.journalapp.entity.User;
+import com.demo.journalapp.service.QuoteService;
 import com.demo.journalapp.service.UserService;
+import com.demo.journalapp.service.WeatherService;
 import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
@@ -16,8 +20,13 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-    public UserController(UserService userService) {
+    private final WeatherService weatherService;
+    private final QuoteService quoteService;
+
+    public UserController(UserService userService, WeatherService weatherService, QuoteService quoteService) {
         this.userService = userService;
+        this.weatherService = weatherService;
+        this.quoteService = quoteService;
     }
 
     @GetMapping("all")
@@ -45,5 +54,19 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         return userService.deleteByUserName(username);
+    }
+
+    @GetMapping("/greet")
+    public String greeting(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse weatherResponse = weatherService.getWeather("Mumbai");
+        QuoteResponse quoteResponse = quoteService.getRandomQuote();
+        String quote = quoteResponse.getQuote();
+        String greeting = "";
+        if(weatherResponse!= null){
+            greeting = ", Weather feels like " + weatherResponse.getMain().getFeelsLike()+ " degrees. Here is a beautiful quote for you " +quote;
+            return "Hi " + authentication.getName()+greeting;
+        }
+        return "Hi " + authentication.getName();
     }
 }
